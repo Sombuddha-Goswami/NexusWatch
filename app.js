@@ -34,6 +34,14 @@ const FEED_SOURCES = {
     { name: 'The Economist',  url: 'https://www.economist.com/finance-and-economics/rss.xml', icon: '🏦' },
     { name: 'Moneycontrol',   url: 'https://www.moneycontrol.com/rss/latestnews.xml',        icon: '₹' },
     { name: 'Financial Times', url: 'https://www.ft.com/rss/home',                           icon: '📰' },
+  ],
+  india: [
+    { name: 'Economic Times',   url: 'https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms', icon: '🇮🇳' },
+    { name: 'Livemint',          url: 'https://www.livemint.com/rss/markets',                                icon: '📈' },
+    { name: 'NDTV Profit',       url: 'https://feeds.feedburner.com/ndtvprofit-latest',                      icon: '📺' },
+    { name: 'Business Standard', url: 'https://www.business-standard.com/rss/markets-106.rss',               icon: '📊' },
+    { name: 'Moneycontrol',      url: 'https://www.moneycontrol.com/rss/marketreports.xml',                  icon: '₹' },
+    { name: 'Hindu BusinessLine', url: 'https://www.thehindubusinessline.com/feeder/default.rss',            icon: '💹' },
   ]
 };
 
@@ -41,6 +49,7 @@ const CATEGORY_META = {
   all:       { label: 'All Feeds',                subtitle: 'Aggregated from all sources',          icon: '🌐' },
   world:     { label: 'World News',               subtitle: 'Global events and geopolitics',        icon: '🌍' },
   finance:   { label: 'Finance & Business',       subtitle: 'Markets, investing, economy & trends', icon: '💰' },
+  india:     { label: 'India',                     subtitle: 'Indian markets, economy & policy',     icon: '🇮🇳' },
   ai:        { label: 'AI & Technology',           subtitle: 'Artificial intelligence updates',      icon: '🤖' },
   startups:  { label: 'Startups & Opportunities', subtitle: 'Startup news and funding rounds',      icon: '🚀' },
   bookmarks: { label: 'Bookmarked',               subtitle: 'Your saved articles',                  icon: '⭐' },
@@ -91,6 +100,7 @@ const dom = {
   countAll:      $('#countAll'),
   countWorld:    $('#countWorld'),
   countFinance:  $('#countFinance'),
+  countIndia:    $('#countIndia'),
   countAi:       $('#countAi'),
   countStartups: $('#countStartups'),
   countBookmarks: $('#countBookmarks'),
@@ -520,6 +530,7 @@ function updateCounts() {
   dom.countAll.textContent = state.articles.length;
   dom.countWorld.textContent = count('world');
   dom.countFinance.textContent = count('finance');
+  dom.countIndia.textContent = count('india');
   dom.countAi.textContent = count('ai');
   dom.countStartups.textContent = count('startups');
   dom.countBookmarks.textContent = state.bookmarks.length;
