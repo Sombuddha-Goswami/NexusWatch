@@ -36,12 +36,12 @@ const FEED_SOURCES = {
     { name: 'Financial Times', url: 'https://www.ft.com/rss/home',                           icon: '📰' },
   ],
   india: [
-    { name: 'Economic Times',   url: 'https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms', icon: '🇮🇳' },
-    { name: 'Livemint',          url: 'https://www.livemint.com/rss/markets',                                icon: '📈' },
-    { name: 'NDTV Profit',       url: 'https://feeds.feedburner.com/ndtvprofit-latest',                      icon: '📺' },
-    { name: 'Business Standard', url: 'https://www.business-standard.com/rss/markets-106.rss',               icon: '📊' },
-    { name: 'Moneycontrol',      url: 'https://www.moneycontrol.com/rss/marketreports.xml',                  icon: '₹' },
-    { name: 'Hindu BusinessLine', url: 'https://www.thehindubusinessline.com/feeder/default.rss',            icon: '💹' },
+    { name: 'ET Markets',        url: 'https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms',        icon: '🇮🇳' },
+    { name: 'ET Economy',        url: 'https://economictimes.indiatimes.com/news/economy/rssfeeds/1373380680.cms',   icon: '🏛️' },
+    { name: 'Livemint Markets',  url: 'https://www.livemint.com/rss/markets',                                        icon: '📈' },
+    { name: 'NDTV Profit',       url: 'https://feeds.feedburner.com/ndtvprofit-latest',                              icon: '📺' },
+    { name: 'Hindu BusinessLine', url: 'https://www.thehindubusinessline.com/feeder/default.rss',                    icon: '📰' },
+    { name: 'TOI Business',      url: 'https://timesofindia.indiatimes.com/rssfeeds/1898055.cms',                    icon: '💹' },
   ]
 };
 
@@ -244,19 +244,30 @@ async function fetchAllFeeds() {
   showLoading();
 
   const allArticles = [];
-  const fetchPromises = [];
 
+  // Build flat list of all feed tasks
+  const feedTasks = [];
   for (const [category, sources] of Object.entries(FEED_SOURCES)) {
     for (const source of sources) {
-      fetchPromises.push(
-        fetchFeed(source.url, category, source.name, source.icon)
-          .then(articles => allArticles.push(...articles))
-          .catch(err => console.warn(`Failed to fetch ${source.name}:`, err))
-      );
+      feedTasks.push({ ...source, category });
     }
   }
 
-  await Promise.allSettled(fetchPromises);
+  // Fetch in batches of 4 with delays to avoid rss2json rate limits
+  const BATCH_SIZE = 4;
+  for (let i = 0; i < feedTasks.length; i += BATCH_SIZE) {
+    const batch = feedTasks.slice(i, i + BATCH_SIZE);
+    const batchPromises = batch.map(task =>
+      fetchFeed(task.url, task.category, task.name, task.icon)
+        .then(articles => allArticles.push(...articles))
+        .catch(err => console.warn(`Failed to fetch ${task.name}:`, err))
+    );
+    await Promise.allSettled(batchPromises);
+    // Small delay between batches to respect rate limits
+    if (i + BATCH_SIZE < feedTasks.length) {
+      await new Promise(r => setTimeout(r, 600));
+    }
+  }
 
   if (allArticles.length === 0) {
     // Try with CORS proxy fallback
