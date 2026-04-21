@@ -28,6 +28,13 @@ const FEED_SOURCES = {
     { name: 'TechCrunch',  url: 'https://techcrunch.com/feed/',         icon: '🚀' },
     { name: 'Hacker News',  url: 'https://hnrss.org/frontpage',         icon: '🧑‍💻' },
     { name: 'YC Blog',      url: 'https://www.ycombinator.com/blog/rss', icon: '🎯' },
+  ],
+  finance: [
+    { name: 'Forbes',         url: 'https://www.forbes.com/business/feed/',                      icon: '💰' },
+    { name: 'Investopedia',   url: 'https://www.investopedia.com/feedbuilder/feed/getfeed/?feedName=rss_headline', icon: '📊' },
+    { name: 'The Economist',  url: 'https://www.economist.com/finance-and-economics/rss.xml',    icon: '🏦' },
+    { name: 'Moneycontrol',   url: 'https://www.moneycontrol.com/rss/latestnews.xml',            icon: '💹' },
+    { name: 'Financial Times', url: 'https://www.ft.com/rss/home',                               icon: '📰' },
   ]
 };
 
@@ -35,6 +42,7 @@ const CATEGORY_META = {
   all:       { label: 'All Feeds',                subtitle: 'Aggregated from all sources',          icon: '🌐' },
   world:     { label: 'World News',               subtitle: 'Global events and geopolitics',        icon: '🌍' },
   markets:   { label: 'Markets & Business',       subtitle: 'Market shifts and business trends',    icon: '📈' },
+  finance:   { label: 'Finance & Business',       subtitle: 'Personal finance, investing & economy', icon: '💰' },
   ai:        { label: 'AI & Technology',           subtitle: 'Artificial intelligence updates',      icon: '🤖' },
   startups:  { label: 'Startups & Opportunities', subtitle: 'Startup news and funding rounds',      icon: '🚀' },
   bookmarks: { label: 'Bookmarked',               subtitle: 'Your saved articles',                  icon: '⭐' },
@@ -85,6 +93,7 @@ const dom = {
   countAll:      $('#countAll'),
   countWorld:    $('#countWorld'),
   countMarkets:  $('#countMarkets'),
+  countFinance:  $('#countFinance'),
   countAi:       $('#countAi'),
   countStartups: $('#countStartups'),
   countBookmarks: $('#countBookmarks'),
@@ -514,6 +523,7 @@ function updateCounts() {
   dom.countAll.textContent = state.articles.length;
   dom.countWorld.textContent = count('world');
   dom.countMarkets.textContent = count('markets');
+  dom.countFinance.textContent = count('finance');
   dom.countAi.textContent = count('ai');
   dom.countStartups.textContent = count('startups');
   dom.countBookmarks.textContent = state.bookmarks.length;

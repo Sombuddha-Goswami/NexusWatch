@@ -32,6 +32,7 @@
   /* Category Colors */
   --cat-world: #f59e0b;
   --cat-markets: #10b981;
+  --cat-finance: #e879f9;
   --cat-ai: #a78bfa;
   --cat-startups: #06b6d4;
 
@@ -652,6 +653,7 @@ input, select {
 
 .article-card__no-thumb--world { background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.02)); }
 .article-card__no-thumb--markets { background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(16,185,129,0.02)); }
+.article-card__no-thumb--finance { background: linear-gradient(135deg, rgba(232,121,249,0.08), rgba(232,121,249,0.02)); }
 .article-card__no-thumb--ai { background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(167,139,250,0.02)); }
 .article-card__no-thumb--startups { background: linear-gradient(135deg, rgba(6,182,212,0.08), rgba(6,182,212,0.02)); }
 
@@ -680,6 +682,7 @@ input, select {
 
 .badge--world { background: rgba(245,158,11,0.12); color: var(--cat-world); }
 .badge--markets { background: rgba(16,185,129,0.12); color: var(--cat-markets); }
+.badge--finance { background: rgba(232,121,249,0.12); color: var(--cat-finance); }
 .badge--ai { background: rgba(167,139,250,0.12); color: var(--cat-ai); }
 .badge--startups { background: rgba(6,182,212,0.12); color: var(--cat-startups); }
 
@@ -746,6 +749,7 @@ input, select {
 
 .source-dot--world { background: var(--cat-world); }
 .source-dot--markets { background: var(--cat-markets); }
+.source-dot--finance { background: var(--cat-finance); }
 .source-dot--ai { background: var(--cat-ai); }
 .source-dot--startups { background: var(--cat-startups); }
 
@@ -1073,6 +1077,7 @@ input, select {
 }
 .cat-dot--world { background: var(--cat-world); }
 .cat-dot--markets { background: var(--cat-markets); }
+.cat-dot--finance { background: var(--cat-finance); }
 .cat-dot--ai { background: var(--cat-ai); }
 .cat-dot--startups { background: var(--cat-startups); }
 
